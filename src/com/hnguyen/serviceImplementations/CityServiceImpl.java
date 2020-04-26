@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hnguyen.DAOImplementations.CityDAOImpl;
 import com.hnguyen.daos.CityDAO;
 import com.hnguyen.entities.City;
 import com.hnguyen.services.CityService;
@@ -17,10 +16,6 @@ public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private CityDAO cityDAO;
-	
-//	public CityServiceImpl() {
-//		this.cityDAO = new CityDAOImpl();
-//	}
 
 	@Override
 	@Transactional

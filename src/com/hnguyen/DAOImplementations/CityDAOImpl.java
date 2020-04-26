@@ -79,7 +79,8 @@ public class CityDAOImpl implements CityDAO {
 	public void deleteCity(int cityID) {
 		Session session = factory.getCurrentSession();
 
-		Query<City> query = session.createQuery("DELETE FROM City WHERE cityID = :cityID", City.class);
+		// For DELETE, the query should not be typed Query<City> query = ...
+		Query query = session.createQuery("DELETE FROM City WHERE cityID = :cityID");
 
 		query.setParameter("cityID", cityID);
 

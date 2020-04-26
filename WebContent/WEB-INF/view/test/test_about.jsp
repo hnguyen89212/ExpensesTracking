@@ -1,5 +1,5 @@
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp"%>
 
-  <h1>Test About Page</h1>
+<h1>Test About Page</h1>
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="../footer.jsp"%>

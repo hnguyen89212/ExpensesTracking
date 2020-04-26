@@ -1,5 +1,5 @@
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp"%>
 
-	<h1>Welcome to "${ city.cityName }"</h1>
+<h1>Welcome to "${ city.cityName }"</h1>
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="../footer.jsp"%>
