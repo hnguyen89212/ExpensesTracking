@@ -1,4 +1,4 @@
-package com.hnguyen.test;
+package com.hnguyen.tests.setup;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

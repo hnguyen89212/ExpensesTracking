@@ -1,6 +1,6 @@
 /**
  * Connection information for:
- *  - Macbook: khnguyen @ password
+ *  - Macbook: root @ passWORD (MySQL@8.0.19)
  *  - Windows: '' @ '' (xampp)
  */
 
@@ -46,7 +46,8 @@ CREATE TABLE customer(
 	address 				VARCHAR(100),
 	postal_code 			VARCHAR(6) NOT NULL,
 	email 					VARCHAR(100) NOT NULL,
-	monthly_start_date 		DATE NOT NULL DEFAULT NOW(),
+--	monthly_start_date 		DATETIME NOT NULL,
+	monthly_start_date		TINYINT NOT NULL DEFAULT 1,
 	PRIMARY KEY(customer_id),
 	FOREIGN KEY(postal_code) REFERENCES postal_code(postal_code),
 	UNIQUE(email)
@@ -100,7 +101,8 @@ CREATE TABLE monthly_budget(
 	month					INT NOT NULL,
 	amount					INT NOT NULL DEFAULT 1000,
 	PRIMARY KEY(monthly_budget_id),
-	FOREIGN KEY(customer_id) REFERENCES customer(customer_id)
+	FOREIGN KEY(customer_id) REFERENCES customer(customer_id),
+	UNIQUE(customer_id, year, month)
 );
 
 CREATE TABLE receipt(
@@ -111,4 +113,17 @@ CREATE TABLE receipt(
 	PRIMARY KEY(receipt_id),
 	FOREIGN KEY(customer_id) REFERENCES customer(customer_id),
 	FOREIGN KEY(store_id) REFERENCES store(store_id)
+);
+
+CREATE TABLE receipt_product(
+	receipt_product_id		INT NOT NULL AUTO_INCREMENT,
+	receipt_id				INT NOT NULL,
+	product_id				INT NOT NULL,
+	quantity				TINYINT NOT NULL DEFAULT 1,
+	sale_price				DECIMAL(13, 4) NOT NULL,
+	hst						DECIMAL(4, 2) NOT NULL,
+	PRIMARY KEY(receipt_product_id),
+	FOREIGN KEY(receipt_id) REFERENCES receipt(receipt_id),
+	FOREIGN KEY(product_id) REFERENCES product(product_id),
+	UNIQUE(receipt_id, product_id)
 );
