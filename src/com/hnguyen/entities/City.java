@@ -1,5 +1,6 @@
 package com.hnguyen.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,9 +29,26 @@ public class City {
 	 * City - PostalCode relationship is 1 - N: one city has multiple postal codes.
 	 * So there should be a list of postal codes as an attribute in City class.
 	 */
-	@OneToMany(mappedBy = "city", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+	@OneToMany(mappedBy = "city", cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	private List<PostalCode> postalCodes;
+
+	public List<PostalCode> getPostalCodes() {
+		return postalCodes;
+	}
+
+	public void setPostalCodes(List<PostalCode> postalCodes) {
+		this.postalCodes = postalCodes;
+	}
+
+	public void add(PostalCode postalCode) {
+		if (postalCodes == null) {
+			postalCodes = new ArrayList<>();
+		}
+
+		postalCodes.add(postalCode);
+		postalCode.setCity(this);
+	}
 
 	public City() {
 	}
@@ -43,9 +62,10 @@ public class City {
 	}
 
 	/**
-	 * Typically, we will not invoke this method directly to change ID of a city.
-	 * It is intuitive to think of eliminating this method.
-	 * However, it is still crucial in the way that the Hibernate uses it to set the value/path cityID in JSP.
+	 * Typically, we will not invoke this method directly to change ID of a city. It
+	 * is intuitive to think of eliminating this method. However, it is still
+	 * crucial in the way that the Hibernate uses it to set the value/path cityID in
+	 * JSP.
 	 * 
 	 * @param cityID
 	 */

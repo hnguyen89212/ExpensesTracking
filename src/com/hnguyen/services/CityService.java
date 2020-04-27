@@ -17,5 +17,7 @@ public interface CityService {
 	public void saveCity(City city);
 
 	public void deleteCity(int cityID);
+	
+	public void savePostalCode(String cityID_, String postalCode, boolean saveMode);
 
 }

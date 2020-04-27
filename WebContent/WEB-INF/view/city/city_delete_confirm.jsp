@@ -2,10 +2,9 @@
 
 <%
 	int cityID = 0;
-if (request.getAttribute("cityID") != null) {
-	System.out.println("cityID in JSP " + request.getAttribute("cityID"));
-	cityID = (int) request.getAttribute("cityID");
-}
+	if (request.getAttribute("cityID") != null) {
+		cityID = (int) request.getAttribute("cityID");
+	}
 %>
 
 <div>

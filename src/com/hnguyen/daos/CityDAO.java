@@ -18,5 +18,9 @@ public interface CityDAO {
 	public void saveCity(City city);
 
 	public void deleteCity(int cityID);
+	
+	// City - PostalCode is 1 - N relationship and City is kind of owner.
+	// So, adding new postal code should be handled by City.
+	public void savePostalCode(String cityID_, String postalCode, boolean saveMode);
 
 }

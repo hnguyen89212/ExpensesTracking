@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hnguyen.daos.CityDAO;
 import com.hnguyen.entities.City;
+import com.hnguyen.entities.PostalCode;
 
 @Repository
 public class CityDAOImpl implements CityDAO {
@@ -85,6 +86,30 @@ public class CityDAOImpl implements CityDAO {
 		query.setParameter("cityID", cityID);
 
 		query.executeUpdate();
+	}
+
+	@Override
+	public void savePostalCode(String cityID_, String postalCode, boolean saveMode) { // "3", "N5X0E1"
+		Session session = factory.getCurrentSession();
+
+		City city = session.get(City.class, Integer.parseInt(cityID_));
+
+		if (saveMode) {
+			PostalCode newPostalCode = new PostalCode(postalCode);
+
+			city.add(newPostalCode);
+
+			session.save(newPostalCode);
+		} else {
+			// Update/Delete query cannot be typed.
+			Query query = session.createQuery("UPDATE PostalCode " + "SET city = :city " + "WHERE postalCode = :postalCode");
+
+			query.setParameter("city", city);
+			query.setParameter("postalCode", postalCode);
+
+			query.executeUpdate();
+		}
+
 	}
 
 }

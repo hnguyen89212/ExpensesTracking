@@ -2,11 +2,7 @@
 
 <%
 	String title = "Add new City";
-%>
-<%
 	String method_ = "POST";
-%>
-<%
 	String action_ = "/ExpensesTracking/cities/";
 %>
 <%
@@ -16,15 +12,10 @@
 		cityID = (int) request.getAttribute("cityID");
 	}
 %>
-
 <c:if test="${ isEdit }">
 	<%
 		title = "Edit City";
-	%>
-	<%
 		method_ = "PUT";
-	%>
-	<%
 		action_ = "edit/execute";
 	%>
 </c:if>

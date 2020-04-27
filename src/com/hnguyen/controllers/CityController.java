@@ -25,7 +25,9 @@ public class CityController {
 	@RequestMapping("/")
 	public String gettAllCities(Model model) {
 		List<City> cities = this.cityService.getAllCities();
+
 		model.addAttribute("cities", cities);
+
 		return this.viewDir + "all_cities";
 	}
 
@@ -43,8 +45,10 @@ public class CityController {
 	@RequestMapping(value = "/name/{cityName}", method = RequestMethod.GET)
 	public String getCitiesByName(@PathVariable String cityName, Model model) {
 		List<City> cities = this.cityService.getCityByName(cityName);
+
 		model.addAttribute("cities", cities);
 		model.addAttribute("cityName", cityName);
+
 		return this.viewDir + "cities_with_matching_name";
 	}
 
@@ -55,9 +59,11 @@ public class CityController {
 		City city = this.cityService.getCityByCityID(cityID);
 		// TODO Handles the case if no city is found.
 		if (city == null) {
-			return this.viewDir + "all_cities";
+			return "redirect:/" + "exceptions/generic";
 		}
+
 		model.addAttribute("city", city);
+
 		return this.viewDir + "city";
 	}
 
@@ -65,7 +71,9 @@ public class CityController {
 	@RequestMapping(value = "/postalcode/{postalCode}", method = RequestMethod.GET)
 	public String getCityByPostalCode(@PathVariable String postalCode, Model model) {
 		City city = this.cityService.getCityByPostalCode(postalCode);
+
 		model.addAttribute("city", city);
+
 		return this.viewDir + "city";
 	}
 
@@ -73,7 +81,9 @@ public class CityController {
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getCityAddForm(Model model) {
 		City city = new City();
+
 		model.addAttribute("city", city);
+
 		return this.viewDir + "city_form";
 	}
 
@@ -91,31 +101,36 @@ public class CityController {
 	@RequestMapping(value = "/{cityID}/edit", method = RequestMethod.GET)
 	public String getCityEditForm(@PathVariable int cityID, Model model) {
 		City city = this.cityService.getCityByCityID(cityID);
+
 		model.addAttribute("city", city);
 		model.addAttribute("isEdit", true);
 		model.addAttribute("cityID", cityID);
+
 		return this.viewDir + "city_form";
 	}
 
 	@RequestMapping(value = "/{cityID}/edit/execute", method = { RequestMethod.PUT, RequestMethod.POST })
 	public String updateCity(@ModelAttribute("city") City city) {
 		this.cityService.saveCity(city);
+
 		return "redirect:/" + "cities/";
 	}
 
 	// Shows a form to confirm deleting a city with ID "cityID"
 	@RequestMapping(value = "/{cityID}/delete", method = RequestMethod.GET)
-	public String deleteCityConfirm(@PathVariable int cityID, Model model) {
+	public String confirmDeleteCity(@PathVariable int cityID, Model model) {
 		City city = this.cityService.getCityByCityID(cityID);
+
 		model.addAttribute("city", city);
+
 		return this.viewDir + "city_delete_confirm";
 	}
 
 	// Route to actually destroy the city.
 	@RequestMapping(value = "/{cityID}/delete/execute", method = { RequestMethod.DELETE, RequestMethod.POST })
 	public String deleteCity(@ModelAttribute("city") City city) {
-		System.out.println("from controller: " + city.toString());
 		this.cityService.deleteCity(city.getCityID());
+
 		return "redirect:/" + "cities/";
 	}
 

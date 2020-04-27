@@ -2,10 +2,9 @@ package com.hnguyen.serviceImplementations;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hnguyen.daos.CityDAO;
 import com.hnguyen.entities.City;
@@ -34,7 +33,7 @@ public class CityServiceImpl implements CityService {
 	public City getCityByPostalCode(String postalCode) {
 		return cityDAO.getCityByPostalCode(postalCode);
 	}
-	
+
 	@Override
 	@Transactional
 	public City getCityByCityID(int cityID) {
@@ -51,6 +50,12 @@ public class CityServiceImpl implements CityService {
 	@Transactional
 	public void deleteCity(int cityID) {
 		cityDAO.deleteCity(cityID);
+	}
+	
+	@Override
+	@Transactional
+	public void savePostalCode(String cityID_, String postalCode, boolean saveMode) {
+		cityDAO.savePostalCode(cityID_, postalCode, saveMode);
 	}
 
 }

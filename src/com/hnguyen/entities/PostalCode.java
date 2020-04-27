@@ -21,8 +21,8 @@ public class PostalCode {
 	 * In the table "postal_code", columm "city_id" has potentially many duplicate
 	 * values (city_id). Hence, @Column here is not appropriate.
 	 */
-//	@Column(name = "city_id")
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.REMOVE })
 	@JoinColumn(name = "city_id")
 	private City city;
 
@@ -41,11 +41,11 @@ public class PostalCode {
 		this.postalCode = postalCode;
 	}
 
-	public City getCityID() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCityID(City city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
 
